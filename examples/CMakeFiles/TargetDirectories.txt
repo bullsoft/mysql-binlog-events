@@ -1,0 +1,3 @@
+/Users/guweigang/tmp/mysql-binary-log-events-1.0.2-labs/examples/CMakeFiles/binlog-browser.dir
+/Users/guweigang/tmp/mysql-binary-log-events-1.0.2-labs/examples/CMakeFiles/basic-2.dir
+/Users/guweigang/tmp/mysql-binary-log-events-1.0.2-labs/examples/CMakeFiles/basic-1.dir

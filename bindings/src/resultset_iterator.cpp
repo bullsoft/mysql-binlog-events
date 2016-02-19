@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 */
 
 #include "resultset_iterator.h"
-#include "protocol.h"
 #include "row_of_fields.h"
 #include <sstream>
 

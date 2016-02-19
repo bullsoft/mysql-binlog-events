@@ -26,6 +26,10 @@
 #ifndef BINARY_LOG_TYPES_INCLUDED
 #define BINARY_LOG_TYPES_INCLUDED
 
+#include <mysql_version.h>
+#if MYSQL_VERSION_ID < 50706
+#include <mysql.h>
+#endif
 #ifdef __cplusplus
 extern "C"
 {
@@ -35,6 +39,7 @@ extern "C"
  * Constants exported from this package.
  */
 
+#if MYSQL_VERSION_ID >= 50706
 typedef enum enum_field_types {
   MYSQL_TYPE_DECIMAL, MYSQL_TYPE_TINY,
   MYSQL_TYPE_SHORT,  MYSQL_TYPE_LONG,
@@ -48,6 +53,7 @@ typedef enum enum_field_types {
   MYSQL_TYPE_TIMESTAMP2,
   MYSQL_TYPE_DATETIME2,
   MYSQL_TYPE_TIME2,
+  MYSQL_TYPE_JSON=245,
   MYSQL_TYPE_NEWDECIMAL=246,
   MYSQL_TYPE_ENUM=247,
   MYSQL_TYPE_SET=248,
@@ -59,6 +65,7 @@ typedef enum enum_field_types {
   MYSQL_TYPE_STRING=254,
   MYSQL_TYPE_GEOMETRY=255
 } enum_field_types;
+#endif
 
 #define DATETIME_MAX_DECIMALS 6
 

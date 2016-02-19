@@ -251,6 +251,10 @@ int Binlog_file_driver::update_pos(binary_log::Binary_log_event *event)
   return ERR_OK;
 }
 
+size_t Binlog_file_driver::file_size() const
+{
+  return m_binlog_file_size;
+}
 }// end namespace system
 }// end namespace binary_log
 

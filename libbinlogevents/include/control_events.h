@@ -573,6 +573,7 @@ public:
   */
   Incident_event(const char *buf, unsigned int event_len,
                  const Format_description_event *description_event);
+  ~Incident_event();
 #ifndef HAVE_MYSYS
   void print_event_info(std::ostream& info);
   void print_long_info(std::ostream& info);
@@ -808,7 +809,7 @@ struct Uuid
   {
     char buf[TEXT_LENGTH + 1];
     to_string(buf);
-    printf("%s\n", buf);
+    std::printf("%s\n", buf);
   }
   /// The number of bytes in the textual representation of a Uuid.
   static const size_t TEXT_LENGTH= 36;

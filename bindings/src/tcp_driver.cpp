@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2011, 2015, Oracle and/or its affiliates. All rights
+Copyright (c) 2011, 2016, Oracle and/or its affiliates. All rights
 reserved.
 
 This program is free software; you can redistribute it and/or
@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301  USA
 */
 
-#include "protocol.h"
 #include "binlog.h"
 #include "binlog_event.h"
 #include <decoder.h>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #include <mysql.h>
 #include <m_ctype.h>
 #include <sql_common.h>
+#include <m_string.h>
 
 #include <iostream>
 #include <cstring>
@@ -212,7 +212,11 @@ void Binlog_tcp_driver::start_binlog_dump(const char *binlog_name,
 int Binlog_tcp_driver::get_next_event(std::pair<unsigned char *, size_t> *buf_len_pair)
 {
   size_t buf_len;
-  buf_len= cli_safe_read(m_mysql, NULL);
+#if MYSQL_VERSION_ID >= 50705
+   buf_len= cli_safe_read(m_mysql, NULL);
+#else
+  buf_len= cli_safe_read(m_mysql);
+#endif
   if (buf_len == packet_error)
      return ERR_FAIL;
 
@@ -254,7 +258,7 @@ int Binlog_tcp_driver::disconnect()
 void Binlog_tcp_driver::shutdown(void)
 {
   m_shutdown= true;
- //TODO: Add a call to mysql_shutdown
+  mysql_shutdown(m_mysql, SHUTDOWN_DEFAULT);
 }
 
 int Binlog_tcp_driver::set_position(const std::string &str, unsigned long position)
@@ -320,6 +324,21 @@ bool fetch_master_status(MYSQL *mysql, std::string *filename,
   *position= strtoul(row[1], NULL, 0);
   return ERR_OK;
 }
+
+size_t Binlog_tcp_driver::file_size() const
+{
+  MYSQL *mysql= mysql_init(NULL);
+  if (!mysql)
+    return ERR_FAIL;
+  if (int err= sync_connect_and_authenticate(mysql, m_user, m_passwd,
+                                             m_host, m_port) != ERR_OK)
+    return err;
+  std::map<std::string, unsigned long> mp;
+  std::map<std::string, unsigned long>::iterator it;
+  fetch_binlog_name_and_size(mysql, &mp);
+  return static_cast<size_t>((*mp.begin()).second);
+}
+
 
 bool fetch_binlog_name_and_size(MYSQL *mysql, std::map<std::string, unsigned long> *binlog_map)
 {

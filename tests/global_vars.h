@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015, Oracle and/or its affiliates. All rights
+Copyright (c) 2015, 2016 Oracle and/or its affiliates. All rights
 reserved.
 
 This program is free software; you can redistribute it and/or
@@ -22,11 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #define GLOBAL_VARS_INCLUDED
 
 #include "binlog.h"
-#include <iostream>
-#include <cstdlib>
 #include <map>
-#include <string>
-#include <stdio.h>
 
 extern const char* uri_arg;
 
@@ -48,16 +44,26 @@ void ComparisonValues::assign_field_value()
   expected_field_val[MYSQL_TYPE_LONG]= "2147483647";
   expected_field_val[MYSQL_TYPE_FLOAT]= "4.50933e+27";
   expected_field_val[MYSQL_TYPE_DOUBLE]= "4.17201e-309";
-  expected_field_val[MYSQL_TYPE_TIMESTAMP]= "2038-01-19 03:14:07";
   expected_field_val[MYSQL_TYPE_LONGLONG]= "9223372036854775807";
   expected_field_val[MYSQL_TYPE_DATETIME]= "9999-12-31 23:59:59";
   expected_field_val[MYSQL_TYPE_VARCHAR]= "BAPI";
-  // Not implemented yet in the API
+  expected_field_val[MYSQL_TYPE_STRING]= "mysql_type_string";
+  expected_field_val[MYSQL_TYPE_TINY_BLOB]= "mysql_type_blob";
+  expected_field_val[MYSQL_TYPE_MEDIUM_BLOB]= "mysql_type_blob";
+  expected_field_val[MYSQL_TYPE_LONG_BLOB]= "mysql_type_blob";
+  expected_field_val[MYSQL_TYPE_BLOB]= "mysql_type_blob";
+  expected_field_val[MYSQL_TYPE_YEAR]= "2012";
+  expected_field_val[MYSQL_TYPE_ENUM]= "2";
+  expected_field_val[MYSQL_TYPE_SET]= "b'00000100'";
+  expected_field_val[MYSQL_TYPE_VAR_STRING]= "mysql_type_string";
   expected_field_val[MYSQL_TYPE_INT24]= "8388607";
   expected_field_val[MYSQL_TYPE_DATE]= "9999-12-31";
   expected_field_val[MYSQL_TYPE_TIME]= "838:59:59";
   expected_field_val[MYSQL_TYPE_BIT]= "b'11111111'";
+  // Not yet implemented
+  expected_field_val[MYSQL_TYPE_TIMESTAMP]= "2038-01-19 03:14:07";
+  expected_field_val[MYSQL_TYPE_DECIMAL]= "818.98";
+  expected_field_val[MYSQL_TYPE_NEWDECIMAL]= "818.98";
 }
-
 #endif
 

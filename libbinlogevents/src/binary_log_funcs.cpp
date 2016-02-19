@@ -1,4 +1,4 @@
-/* Copyright (c)  2014, Oracle and/or its affiliates. All rights reserved.
+/* Copyright (c)  2014, 2016 Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -139,15 +139,21 @@ max_display_length_for_field(enum_field_types sql_type, unsigned int metadata)
 
   case MYSQL_TYPE_DATE:
   case MYSQL_TYPE_TIME:
-  case MYSQL_TYPE_TIME2:
+#if MYSQL_VERSION_ID >= 50604
+   case MYSQL_TYPE_TIME2:
+#endif
     return 3;
 
   case MYSQL_TYPE_TIMESTAMP:
-  case MYSQL_TYPE_TIMESTAMP2:
+#if MYSQL_VERSION_ID >= 50604
+   case MYSQL_TYPE_TIMESTAMP2:
+#endif
     return 4;
 
   case MYSQL_TYPE_DATETIME:
+#if MYSQL_VERSION_ID >= 50604
   case MYSQL_TYPE_DATETIME2:
+#endif
     return 8;
 
   case MYSQL_TYPE_BIT:
@@ -288,6 +294,7 @@ uint32_t calc_field_size(unsigned char col, const unsigned char *master_data,
   case MYSQL_TYPE_TIME:
     length= 3;
     break;
+#if MYSQL_VERSION_ID >= 50604
   case MYSQL_TYPE_TIME2:
     /*
       The original methods in the server to calculate the binary size of the
@@ -299,9 +306,11 @@ uint32_t calc_field_size(unsigned char col, const unsigned char *master_data,
     */
     length= my_time_binary_length(metadata);
     break;
+#endif
   case MYSQL_TYPE_TIMESTAMP:
     length= 4;
     break;
+#if MYSQL_VERSION_ID >= 50604
   case MYSQL_TYPE_TIMESTAMP2:
     /*
       The original methods in the server to calculate the binary size of the
@@ -313,9 +322,11 @@ uint32_t calc_field_size(unsigned char col, const unsigned char *master_data,
     */
     length= my_timestamp_binary_length(metadata);
     break;
+#endif
   case MYSQL_TYPE_DATETIME:
     length= 8;
     break;
+#if MYSQL_VERSION_ID >= 50604
   case MYSQL_TYPE_DATETIME2:
     /*
       The original methods in the server to calculate the binary size of the
@@ -327,6 +338,7 @@ uint32_t calc_field_size(unsigned char col, const unsigned char *master_data,
     */
     length= my_datetime_binary_length(metadata);
     break;
+#endif
   case MYSQL_TYPE_BIT:
   {
     /*

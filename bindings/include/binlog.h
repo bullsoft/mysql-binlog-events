@@ -107,6 +107,10 @@ public:
   {
     return ERR_OK;
   }
+  virtual size_t file_size() const
+  {
+    return ERR_OK;
+  }
 };
 
 
@@ -153,12 +157,17 @@ public:
   unsigned long get_position(void);
 
   /**
-   * Fetch the current active binlog file name.
+   * Fetch the current active binlog file name, and also the file position.
    * @param[out] filename
-   * TODO replace reference with a pointer.
    * @return The current binlog file position
    */
   unsigned long get_position(std::string &filename);
+
+  /**
+   * Returns size of the binary log file.
+   */
+  size_t file_size() const;
+
   int disconnect();
 };
 

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301  USA
 */
 
-#include "protocol.h"
 #include "binlog_event.h"
 #include "basic_transaction_parser.h"
 #include "value.h"
@@ -30,11 +29,11 @@ namespace binary_log {
 binary_log::Binary_log_event *Basic_transaction_parser::
 process_event(binary_log::Query_event *qev)
 {
-  if (qev->query == "BEGIN")
+  if (strncmp(qev->query, "BEGIN", strlen("BEGIN")) == 0)
   {
     m_transaction_state= STARTING;
   }
-  else if (qev->query == "COMMIT")
+  else if (strncmp(qev->query, "COMMIT", strlen("COMMIT")) == 0)
   {
     m_transaction_state= COMMITTING;
   }
@@ -52,7 +51,7 @@ process_event(binary_log::Xid_event *ev)
 binary_log::Binary_log_event *Basic_transaction_parser::
 process_event(binary_log::Table_map_event *ev)
 {
-  if(m_transaction_state ==IN_PROGRESS)
+  if(m_transaction_state == IN_PROGRESS)
   {
     m_event_stack.push_back(ev);
     return 0;
@@ -63,7 +62,7 @@ process_event(binary_log::Table_map_event *ev)
 binary_log::Binary_log_event *Basic_transaction_parser::
 process_event(binary_log::Rows_event *ev)
 {
-  if(m_transaction_state ==IN_PROGRESS)
+  if(m_transaction_state == IN_PROGRESS)
   {
     m_event_stack.push_back(ev);
     return 0;
@@ -80,7 +79,7 @@ process_transaction_state(binary_log::Binary_log_event *incomming_event)
     {
       m_transaction_state= IN_PROGRESS;
       m_start_time= incomming_event->header()->when.tv_sec;
-      delete incomming_event; // drop the begin event
+      delete incomming_event;// drop the begin event
       return 0;
     }
     case COMMITTING:

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   We need to include protocol.h before binlog_api.h, for there is dependency
   between mysqlclient and the header value.h for the enu enum_field_types
 */
-#include "protocol.h"
 #include "binlog.h"
 #include "binlog_driver.h"
 #include <iostream>
@@ -70,6 +69,13 @@ public:
              >ERR_OK   error occured while updating position in file
     */
     int update_pos(binary_log::Binary_log_event *event);
+
+    /**
+      Returns the size of the binlog file currently being read
+
+      @retval   size of file
+    */
+    size_t file_size() const;
 private:
 
     unsigned long m_binlog_file_size;

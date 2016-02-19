@@ -520,6 +520,11 @@ Incident_event::Incident_event(const char *buf, unsigned int event_len,
   return;
 }
 
+Incident_event::~Incident_event()
+{
+  if(message)
+    bapi_free(message);
+}
 Xid_event::
 Xid_event(const char* buf,
           const Format_description_event *description_event)
@@ -786,7 +791,7 @@ void Format_description_event::print_long_info(std::ostream& info)
 {
   this->print_event_info(info);
   info << "\nCreated timestamp: " << created;
-  info << "\tCommon Header Length: " << common_header_len;
+  info << "\tCommon Header Length: " << (int)common_header_len;
 }
 
 

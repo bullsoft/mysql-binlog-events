@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 #ifndef BINLOG_DRIVER_INCLUDED
 #define	BINLOG_DRIVER_INCLUDED
 
-#include "protocol.h"
 #include "binlog_event.h"
 #include <utility>
 
@@ -77,8 +76,13 @@ public:
   virtual int get_position(std::string *filename_ptr,
                            unsigned long *position_ptr) = 0;
 
+  /**
+   * Get the file size of Binary Log file.
+   * @retval   Size of file
+   */
+  virtual size_t file_size() const= 0;
+
   virtual int disconnect()= 0;
-  Binary_log_event* parse_event(std::istream &sbuff, Log_event_header *header);
 
   /**
     Blocking attempt to get the next event buffer

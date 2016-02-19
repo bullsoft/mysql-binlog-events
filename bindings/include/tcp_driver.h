@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2011, 2015, Oracle and/or its affiliates. All rights
+   Copyright (c) 2011, 2016, Oracle and/or its affiliates. All rights
    reserved.
 
    This program is free software; you can redistribute it and/or
@@ -23,9 +23,13 @@
 
 #include "binlog.h"
 #include "binlog_driver.h"
-#include "protocol.h"
 #include <my_global.h>
 #include <mysql.h>
+#ifdef min // need not check for max, checking one is fine
+#undef min
+#undef max
+#endif
+
 #include <cstring>
 #include <map>
 #define MAX_PACKAGE_SIZE 0xffffff
@@ -79,6 +83,12 @@ public:
               >0             Error code
     */
     int get_next_event(std::pair<unsigned char *, size_t> *buffer_buflen);
+
+    /**
+     * Get the file size of Binary Log file.
+     * @retval   Size of file
+     */
+    size_t file_size() const;
     int get_position(std::string *str, unsigned long *position);
     const std::string& user() const { return m_user; }
     const std::string& password() const { return m_passwd; }

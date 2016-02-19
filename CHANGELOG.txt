@@ -1,6 +1,46 @@
-############################
-ChangeLog for Binary Log API
-############################
+###############################
+ChangeLog for Binary Log Events
+###############################
+
+Release 1.0.2 (released February , 2016)
+
+* BUG#21831853: Issues in decoding events when DATETIME2,TIMESTAMP2,TIME2 are present
+* BUG#22006455: Getting the size of binlog file from the Binary_log_driver or
+                Binary_log object
+* BUG#21769608: Missing decoding support for MYSQL_TYPE_NEWDATE
+* BUG#21839191: MySQL data type BLOB is decoded incorrectly
+* BUG#21838776: MySQL data type BLOB,STRING,VARCHAR,CHAR getting decoded wrongly
+* WL#8816:      Test MySQL data types in Binlog Events
+* BUG#22261360: MYSQL_TYPE_DOUBLE NOT PROPERLY DECODED IN BINARY LOG EVENTS
+* Bug#22305107: COMMON HEADER LENGTH NOT PRINTED IN READABLE FORMAT IN BINLOG BROWSER
+* Bug#22306194: MYSQL_TYPE_INT24 IS NOT DECODING PROPERLY IN BINARY LOG EVENTS
+* Bug#22297318: README AND LICENSE FILES MISSING IN BINLOG EVENTS PACKAGE
+
+Release 1.0.1 (released September 8, 2015)
+
+* BUG#21512240: Support linking and compiling with mysql-5.5.30
+* BUG#21455576: Fix compile warnings on OS X
+* BUG#21183280: MYSQL_TYPE_STRING and MYSQL_TYPE_VARCHAR are not decoded properly
+* BUG#21561626: In Delete_rows_event size of null_bits is wrong
+* BUG#21564362: Extra character printed for MYSQL_TYPE_VARCHAR when metadata is 256
+* BUG#21564375: Fixing memory leak in Incident_event
+* BUG#21512662: Table_name contains non printable character
+* BUG#21513653: MYSQL_TYPE_ENUM and MYSQL_TYPE_SET are not decoded correctly
+* BUG#21575419: MISSING DECODING SUPPORT FOR INT24, YEAR, TIME, YEAR & BIT DATA TYPE
+* BUG#21318329: Printing row data in human readable format
+* Bug#21643446: Compilation failure on Windows
+* Bug#21768171: Memory leak with Binlog Events
+* BUG#21620202: Get the size of binary log file when using file transport
+
+Release 1.0.0 (released April 17, 2015)
+
+* BAPI 74: Bug: Cmake error if JNI libraries not found while building the BAPI library
+* BAPI 95: Bug: Fixing memory leaks in the example programs.
+* BAPI 96: Resolving compiler warnings and remove unused code from Binlog API
+* BUG#18033364: MySQL Applier Track Log Pos
+* BUG#18087958: HAPPLIER CRASHES IF IT EXITS BEFORE SEEING A TABLE INDEX EVENT
+* WL#7466: Library for working with replication stream.
+* Removed the code which had third part dependency.
 
 
 Release 0.1.0 (released April 20, 2013)

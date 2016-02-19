@@ -236,18 +236,6 @@ Binary_log_event* Decoder::decode_event(const char* buf, size_t event_len,
     }
   }
 
-//TODO: Modify this comment
-  /*
-    is_valid are small event-specific sanity tests which are
-    important; for example there are some my_malloc() in constructors
-    (e.g. Query_log_event::Query_log_event(char*...)); when these
-    my_malloc() fail we can't return an *error out of the constructor
-(because constructor is "void") ; so instead we leave the pointer we
-    wanted to allocate (e.g. 'query') to 0 and we test it in is_valid().
-    Same for Format_description_log_event, member 'post_header_len'.
-
-    SLAVE_EVENT is never used, so it should not be read ever.
-  */
   if (!ev  || (event_type == SLAVE_EVENT))
   {
     delete ev;

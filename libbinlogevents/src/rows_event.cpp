@@ -124,7 +124,7 @@ Table_map_event::Table_map_event(const char *buf, unsigned int event_len,
 
   m_coltype= static_cast<unsigned char*>(bapi_malloc(m_colcnt, 16));
   m_dbnam= std::string((const char*)ptr_dblen  + 1, m_dblen);
-  m_tblnam= std::string((const char*)ptr_tbllen  + 1, m_tbllen + 1);
+  m_tblnam= std::string((const char*)ptr_tbllen  + 1, m_tbllen);
 
   memcpy(m_coltype, ptr_after_colcnt, m_colcnt);
 
