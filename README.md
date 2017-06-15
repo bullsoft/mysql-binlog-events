@@ -69,3 +69,8 @@ build directory and execute CMake there.
       cmake <source directory>
       make -j4
 
+
+
+About Value Convert
+--------
+Any value that not implement yet in `mysql-binlog-events/bindings/src/value.cpp`, you can look in `mysql-source-code/sql/log_event.cc` and find function `log_event_print_value`. 
