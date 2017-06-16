@@ -99,7 +99,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 include_directories(
                     include
-                    /Users/guweigang/tmp/mysql-5.7.7-rc/include
                     libbinlogevents/include
                     libbinlogevents/export
                     ${PROJECT_BINARY_DIR}/libbinlogevents/include

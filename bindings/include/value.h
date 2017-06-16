@@ -19,10 +19,10 @@
 
 #include "binary_log_funcs.h"
 #include "my_time.h"
+#include "decimal.h"
 #include <stdint.h>
 #include <string.h>
 #include <iostream>
-
 
 
 namespace binary_log {

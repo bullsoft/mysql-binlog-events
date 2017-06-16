@@ -25,6 +25,7 @@ set(replication_sources
     file_driver.cpp
     decoder.cpp
     value.cpp
+    decimal.cpp
     row_of_fields.cpp
     field_iterator.cpp
     basic_transaction_parser.cpp
