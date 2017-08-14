@@ -16,6 +16,8 @@
 include_directories(${CMAKE_SOURCE_DIR}/libbinlogevents/include)
 link_directories(${PROJECT_BINARY_DIR}/libbinlogevents/lib)
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 # This configuration file builds both the static and shared version of
 # the library.
 set(replication_sources
